@@ -1,0 +1,77 @@
+{
+  "fecha": "2026-11-02T00:43:37.745418+00:00",
+  "datos_sha256": "cc63532b8182acddd85b895dfd2f3b6c3037ad1da194d45fa63f7b0a6f54c59e",
+  "origenes": [
+    "2020-09",
+    "2021-09",
+    "2022-09",
+    "2023-09",
+    "2024-09",
+    "2025-09"
+  ],
+  "horizonte": 12,
+  "especificaciones": {
+    "ETS_historia_completa": {
+      "trend": "add",
+      "damped": true,
+      "seasonal": "add"
+    },
+    "ETS_sin_amortiguar": {
+      "trend": "add",
+      "damped": false,
+      "seasonal": "add"
+    },
+    "ETS_sin_tendencia": {
+      "trend": null,
+      "damped": false,
+      "seasonal": "add"
+    },
+    "ETS_sin_estacionalidad": {
+      "trend": "add",
+      "damped": true,
+      "seasonal": null
+    },
+    "Holt_lineal": {
+      "trend": "add",
+      "damped": false,
+      "seasonal": null
+    },
+    "Suavizamiento_simple": {
+      "trend": null,
+      "damped": false,
+      "seasonal": null
+    },
+    "ETS_estacionalidad_multiplicativa": {
+      "trend": "add",
+      "damped": true,
+      "seasonal": "mul"
+    },
+    "ETS_logaritmos": {
+      "trend": "add",
+      "damped": true,
+      "seasonal": "add",
+      "logarithm": true
+    },
+    "ETS_60_meses": {
+      "trend": "add",
+      "damped": true,
+      "seasonal": "add",
+      "window": 60
+    },
+    "ETS_120_meses": {
+      "trend": "add",
+      "damped": true,
+      "seasonal": "add",
+      "window": 120
+    }
+  },
+  "mezclas_peso_ETS": {
+    "ETS_deriva_25": 0.25,
+    "ETS_deriva_50": 0.5,
+    "ETS_deriva_75": 0.75
+  },
+  "seleccion": "RMSE agrupado en los últimos cuatro cortes anuales internos completos; desempate MAE y nombre.",
+  "corte_interno": "Septiembre, al menos 60 meses de historia, doce objetivos que terminan como máximo en el corte exterior.",
+  "fallos": "Una variante solo puede seleccionarse si sus cuatro ajustes internos convergen y sus pronósticos son finitos. Si el ajuste exterior seleccionado falla se usa ETS_historia_completa y se registra.",
+  "alcance": "Exploración retrospectiva sobre períodos reutilizados. No constituye una nueva prueba independiente. Las alternativas son material complementario. El modelo del proyecto usa una ventana fija de hasta 120 meses."
+}
