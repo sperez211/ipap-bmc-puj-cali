@@ -49,10 +49,9 @@ La instalación y ejecución se comprobaron en macOS ARM64 con Python 3.12.14 y 
 | modelos/modelo_ets.pkl | Ajuste final entrenado con 120 meses, de octubre de 2016 a septiembre de 2026 |
 | modelos/ficha_modelo.json | Configuración, entrenamiento, parámetros y entorno |
 | resultados/ | Tablas, gráficos y comprobaciones |
-| Proyecto_IPAP.ipynb | Recorrido por las etapas del trabajo |
-| Proyecto_IPAP_ejecutado.ipynb | El mismo cuaderno con sus resultados |
-| documentacion/ | Captura de procedencia y generación de los documentos |
-| experimentos/ | Comparación complementaria de configuraciones |
+| Proyecto_IPAP.ipynb | Cuaderno con explicaciones, código y resultados ejecutados |
+| documentacion/ | Captura original de BMC e imagen de procedencia |
+| experimentos/ | Código de comparación de configuraciones y tabla resumen |
 
 Los CSV de resultados contienen salidas del programa. No son entradas adicionales. La ejecución regenera modelos y resultados, pero no modifica las observaciones oficiales.
 
@@ -66,7 +65,15 @@ Para ejecutar el cuaderno con el mismo entorno:
 .venv/bin/python comprobar.py
 ```
 
-En Windows, sustituir `.venv/bin/python` por `.venv\Scripts\python.exe`. Para regenerar los Word, instalar además `requirements-documentos.txt` y ejecutar `documentacion/generar_documentos.py`. Los dos documentos toman sus cifras y gráficos de los resultados guardados.
+La ejecución actualiza `Proyecto_IPAP.ipynb` con sus salidas y muestra el número de celdas y errores. En Windows, sustituir `.venv/bin/python` por `.venv\Scripts\python.exe`. Los documentos Word explican los resultados entregados; después de cambiar datos o métodos deben revisarse también sus cifras y figuras.
+
+La comparación complementaria se repite con las mismas dependencias del modelo:
+
+```sh
+.venv/bin/python experimentos/comparar_variantes.py
+```
+
+Esta orden actualiza únicamente `experimentos/comparacion.csv`. Conserva todas las configuraciones comparadas y permite revisar la elección de la ventana de entrenamiento.
 
 ## Datos y evaluación
 

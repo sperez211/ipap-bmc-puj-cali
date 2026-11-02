@@ -31,14 +31,7 @@ def main():
     celdas = [c for c in cuaderno.cells if c.cell_type == "code"]
     assert all(c.execution_count is not None for c in celdas)
     assert not any(o.output_type == "error" for c in celdas for o in c.outputs)
-    nbformat.write(cuaderno, BASE / "Proyecto_IPAP_ejecutado.ipynb")
-    from modelo_ipap import huella
-    evidencia = dict(celdas_codigo=len(celdas), errores=0, python=sys.version.split()[0],
-                     fuente_sha256=huella(BASE / "Proyecto_IPAP.ipynb"),
-                     ejecutado_sha256=huella(BASE / "Proyecto_IPAP_ejecutado.ipynb"),
-                     modelo_sha256=huella(BASE / "modelos/modelo_ets.pkl"))
-    (BASE / "resultados/comprobacion_cuaderno.json").write_text(
-        json.dumps(evidencia, indent=2, ensure_ascii=False), encoding="utf-8")
+    nbformat.write(cuaderno, BASE / "Proyecto_IPAP.ipynb")
     print(f"Cuaderno ejecutado: {len(celdas)} celdas de código, cero errores.")
 
 
