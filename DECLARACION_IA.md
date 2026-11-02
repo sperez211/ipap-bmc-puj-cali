@@ -1,15 +1,8 @@
 # Declaración de uso de herramientas de IA
 
-Pendiente de completar por el equipo antes de la entrega al concurso.
-
-Herramientas utilizadas:
+Herramientas utilizadas: ChatGPT 
 
 
-Usos y alcance:
+Usos y alcance: Uso para complementar modelos, ordenar la información, depurar y redacción estética.
 
-
-Revisión realizada por el equipo:
-
-
-Fecha:
 
