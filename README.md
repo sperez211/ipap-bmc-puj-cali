@@ -89,4 +89,4 @@ La ventana de entrenamiento se definió durante el desarrollo sobre períodos ya
 - [statsmodels 0.14.6](https://www.statsmodels.org/v0.14.6/generated/statsmodels.tsa.holtwinters.ExponentialSmoothing.html), implementación de suavizamiento exponencial utilizada.
 - Se consultó como antecedente [Commodity Price Forecasting de María Sol Pera](https://github.com/msolpera/forecasting_agro). Sus bases de carne, soja y trigo y sus modelos guardados no forman parte de este proyecto. El modelo entregado se ajusta con la serie BMC y no importa código de aquel repositorio.
 
-La [declaración de uso de IA](DECLARACION_IA.md) está pendiente de completar por el equipo. Debe completarse también el espacio reservado en el informe antes de enviarlo al concurso.
+La [declaración de uso de IA](DECLARACION_IA.md).
