@@ -1,18 +1,14 @@
 from pathlib import Path
 from functools import lru_cache
-from datetime import datetime, timezone
-import json
-import warnings
 import sys
 import numpy as np
 import pandas as pd
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
 SOURCE = Path(__file__).resolve().parents[1]
-OUT = SOURCE/'experimentos/resultados'
-OUT.mkdir(parents=True,exist_ok=True)
+OUT = SOURCE/'experimentos'
 sys.path.insert(0, str(SOURCE))
-from modelo_ipap import cargar_datos, huella
+from modelo_ipap import cargar_datos
 
 series = cargar_datos()
 outer = [pd.Period(f'{year}-09', 'M') for year in range(2020, 2026)]
@@ -32,16 +28,6 @@ mixtures = {'ETS_deriva_25': .25, 'ETS_deriva_50': .50, 'ETS_deriva_75': .75}
 baselines = ['Ultimo_valor', 'Mismo_mes_anio_anterior', 'Deriva_12']
 names = list(specs) + list(mixtures) + baselines
 eligible = list(specs) + list(mixtures) + ['Deriva_12']
-protocol = dict(
- fecha=datetime.now(timezone.utc).isoformat(), datos_sha256=huella(SOURCE/'datos/ipap_bmc_mensual.csv'),
- origenes=list(map(str,outer)), horizonte=12, especificaciones=specs, mezclas_peso_ETS=mixtures,
- seleccion='RMSE agrupado en los últimos cuatro cortes anuales internos completos; desempate MAE y nombre.',
- corte_interno='Septiembre, al menos 60 meses de historia, doce objetivos que terminan como máximo en el corte exterior.',
- fallos='Una variante solo puede seleccionarse si sus cuatro ajustes internos convergen y sus pronósticos son finitos. Si el ajuste exterior seleccionado falla se usa ETS_historia_completa y se registra.',
- alcance='Exploración retrospectiva sobre períodos reutilizados. No constituye una nueva prueba independiente. Las alternativas son material complementario. El modelo del proyecto usa una ventana fija de hasta 120 meses.',
-)
-(OUT/'protocolo.json').write_text(json.dumps(protocol,ensure_ascii=False,indent=2))
-diagnostics=[]
 
 def scores(actual, forecast):
  error=np.asarray(actual)-np.asarray(forecast)
@@ -61,16 +47,12 @@ def forecast(name, origin):
  s=specs[name]
  if 'window' in s:history=history.iloc[-s['window']:]
  values=np.log(history.to_numpy()) if s.get('logarithm') else history.to_numpy()
- with warnings.catch_warnings(record=True) as captured:
-  warnings.simplefilter('always')
-  model=ExponentialSmoothing(values,trend=s['trend'],damped_trend=s['damped'],seasonal=s['seasonal'],
+ model=ExponentialSmoothing(values,trend=s['trend'],damped_trend=s['damped'],seasonal=s['seasonal'],
                             seasonal_periods=12 if s['seasonal'] else None,
                             initialization_method='estimated').fit()
-  predicted=np.asarray(model.forecast(12))
-  if s.get('logarithm'):predicted=np.exp(predicted)
+ predicted=np.asarray(model.forecast(12))
+ if s.get('logarithm'):predicted=np.exp(predicted)
  ok=bool(model.mle_retvals.success) and bool(np.isfinite(predicted).all())
- diagnostics.append(dict(modelo=name,origen=str(origin),entrenamiento=len(history),convergio=ok,
-                         avisos=[str(w.message) for w in captured]))
  return predicted,ok
 
 def internal_origins(origin):
@@ -79,8 +61,6 @@ def internal_origins(origin):
  return valid[-4:]
 
 predictions=[]
-selection=[]
-internal_scores=[]
 for origin in outer:
  inner=internal_origins(origin)
  assert len(inner)==4
@@ -94,15 +74,13 @@ for origin in outer:
    y.extend(series.loc[dates].to_numpy());p.extend(predicted);oks.append(ok)
   item=dict(origen_exterior=str(origin),modelo=name,convergio=all(oks),
             origenes_internos=','.join(map(str,inner)),**scores(y,p))
-  internal_scores.append(item)
   if all(oks):rankings.append(item)
  selected=min(rankings,key=lambda r:(r['RMSE'],r['MAE'],r['modelo']))['modelo']
  chosen,ok=forecast(selected,origin)
  fallback=None
  if not ok:fallback=selected;selected='ETS_historia_completa';chosen,ok=forecast(selected,origin)
  assert ok
- selection.append(dict(origen=str(origin),seleccionado=selected,fallback_desde=fallback,
-                       inicio_validacion=str(inner[0]+1),fin_validacion=str(inner[-1]+12)))
+ if fallback:print(f'Corte {origin}: {fallback} no convergió; se usa {selected}.',flush=True)
  dates=pd.period_range(origin+1,periods=12,freq='M')
  for name in names+['Seleccion_interna']:
   predicted,ok=(chosen,True) if name=='Seleccion_interna' else forecast(name,origin)
@@ -117,12 +95,7 @@ summary=pd.DataFrame([dict(modelo=name,**scores(g.real,g.prediccion),
 reference=summary.set_index('modelo').loc['ETS_historia_completa','RMSE']
 summary['mejora_RMSE_frente_historia_completa_pct']=100*(1-summary.RMSE/reference)
 summary=summary.sort_values('RMSE')
-per_origin=pd.DataFrame([dict(modelo=name,origen=origin,**scores(g.real,g.prediccion))
-                        for (name,origin),g in frame.groupby(['modelo','origen'])])
-for name,table in [('comparacion',summary),('predicciones',frame),('metricas_por_origen',per_origin),
-                   ('seleccion_por_origen',pd.DataFrame(selection)),('validacion_interna',pd.DataFrame(internal_scores))]:
- table.to_csv(OUT/f'{name}.csv',index=False)
-(OUT/'diagnosticos.json').write_text(json.dumps(diagnostics,ensure_ascii=False,indent=2))
+summary.to_csv(OUT/'comparacion.csv',index=False)
 original=pd.read_csv(SOURCE/'resultados/predicciones_6_cortes.csv')
 new=frame[frame.modelo=='ETS_120_meses'].sort_values(['origen','horizonte'])
 old=original[original.modelo=='ETS_120_meses'].sort_values(['origen','horizonte'])
