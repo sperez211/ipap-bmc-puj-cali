@@ -7,9 +7,19 @@ El proyecto pronostica el Total agropecuario mensual con ETS y hasta 120 meses r
 
 ## Leer los resultados
 
-El [informe técnico](Informe_tecnico_PUJ_Cali.docx) resume el trabajo. La [guía del proyecto](Guia_del_proyecto_PUJ_Cali.docx) explica la ejecución, los datos, los modelos, el código y la interpretación de cada gráfico desde cero.
+El informe técnico se entrega por separado. Este repositorio contiene los datos, el modelo entrenado, el código y los resultados necesarios para reproducir el trabajo. Las instrucciones de ejecución están en este README.
 
 También se pueden abrir directamente [los resultados](resultados/LEER_RESULTADOS.md), [las métricas](resultados/metricas_6_cortes.csv) y [el pronóstico](resultados/pronostico_12_meses.csv). No hace falta ejecutar código para leer esos archivos. Las imágenes PNG se abren con el visor habitual del computador.
+
+RMSE y MAE miden el error en puntos del índice; MAPE lo expresa en porcentaje. Un valor menor indica menor error. ETS obtiene RMSE 13,68, MAE 9,50 y MAPE 4,61 % en los seis cortes. En el diagnóstico de 2025, la deriva tiene menor RMSE: 5,59 frente a 7,16 de ETS. Estos resultados son retrospectivos.
+
+| Gráfico | Cómo leerlo |
+| --- | --- |
+| [Historia del índice](resultados/historia_ipap.png) | Mes en el eje horizontal y puntos del IPAP en el vertical; muestra las observaciones de BMC |
+| [Comparación de 2025](resultados/comparacion_2025.png) | Mes y puntos del IPAP; contrasta los valores observados con los cuatro métodos |
+| [Error por corte](resultados/error_por_corte.png) | Fecha de corte y RMSE de los doce meses siguientes; menor altura significa menor error |
+| [Error por horizonte](resultados/error_por_horizonte.png) | Meses por delante, de 1 a 12, y RMSE; cada horizonte reúne seis errores por método |
+| [Pronóstico final](resultados/pronostico_12_meses.png) | Mes y puntos del IPAP; línea continua para lo observado y discontinua para lo pronosticado |
 
 ## Ejecutar en macOS o Linux
 
@@ -55,7 +65,7 @@ La instalación y ejecución se comprobaron en macOS ARM64 con Python 3.12.14 y 
 
 Los CSV de resultados contienen salidas del programa. No son entradas adicionales. La ejecución regenera modelos y resultados, pero no modifica las observaciones oficiales.
 
-## Cuaderno y documentos
+## Cuaderno y comparación de modelos
 
 Para ejecutar el cuaderno con el mismo entorno:
 
@@ -65,7 +75,7 @@ Para ejecutar el cuaderno con el mismo entorno:
 .venv/bin/python comprobar.py
 ```
 
-La ejecución actualiza `Proyecto_IPAP.ipynb` con sus salidas y muestra el número de celdas y errores. En Windows, sustituir `.venv/bin/python` por `.venv\Scripts\python.exe`. Los documentos Word explican los resultados entregados; después de cambiar datos o métodos deben revisarse también sus cifras y figuras.
+La ejecución actualiza `Proyecto_IPAP.ipynb` con sus salidas y muestra el número de celdas y errores. En Windows, sustituir `.venv/bin/python` por `.venv\Scripts\python.exe`.
 
 La comparación complementaria se repite con las mismas dependencias del modelo:
 
@@ -89,4 +99,4 @@ La ventana de entrenamiento se definió durante el desarrollo sobre períodos ya
 - [statsmodels 0.14.6](https://www.statsmodels.org/v0.14.6/generated/statsmodels.tsa.holtwinters.ExponentialSmoothing.html), implementación de suavizamiento exponencial utilizada.
 - Se consultó como antecedente [Commodity Price Forecasting de María Sol Pera](https://github.com/msolpera/forecasting_agro). Sus bases de carne, soja y trigo y sus modelos guardados no forman parte de este proyecto. El modelo entregado se ajusta con la serie BMC y no importa código de aquel repositorio.
 
-La [declaración de uso de IA](DECLARACION_IA.md).
+La [declaración de uso de IA](DECLARACION_IA.md) describe la asistencia utilizada durante el desarrollo y también está incluida en el informe técnico.
