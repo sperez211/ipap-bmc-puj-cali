@@ -1,0 +1,13 @@
+modelo,origen,fecha,horizonte,prediccion,tipo
+ETS_120_meses,2026-09,2026-10,1,255.73277562960175,pronostico_del_modelo
+ETS_120_meses,2026-09,2026-11,2,254.74052382966337,pronostico_del_modelo
+ETS_120_meses,2026-09,2026-12,3,257.3696503140672,pronostico_del_modelo
+ETS_120_meses,2026-09,2027-01,4,259.3816546303991,pronostico_del_modelo
+ETS_120_meses,2026-09,2027-02,5,262.86906410089813,pronostico_del_modelo
+ETS_120_meses,2026-09,2027-03,6,264.86330437016073,pronostico_del_modelo
+ETS_120_meses,2026-09,2027-04,7,267.1921658423284,pronostico_del_modelo
+ETS_120_meses,2026-09,2027-05,8,268.4319053170511,pronostico_del_modelo
+ETS_120_meses,2026-09,2027-06,9,268.1811760177506,pronostico_del_modelo
+ETS_120_meses,2026-09,2027-07,10,266.2459384619932,pronostico_del_modelo
+ETS_120_meses,2026-09,2027-08,11,263.92279067107245,pronostico_del_modelo
+ETS_120_meses,2026-09,2027-09,12,264.03878379345434,pronostico_del_modelo

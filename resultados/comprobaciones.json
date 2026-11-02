@@ -1,0 +1,16 @@
+{
+  "csv_coincide_con_captura": true,
+  "filas_csv": 189,
+  "predicciones_historicas_verificadas": 336,
+  "metricas_recalculadas": true,
+  "predicciones_regeneradas": true,
+  "pruebas_sin_informacion_futura": 7,
+  "modelo_recargado_y_comparado": true,
+  "entrenamiento_final_meses": 120,
+  "pronosticos_futuros": 12,
+  "datos_sha256": "cc63532b8182acddd85b895dfd2f3b6c3037ad1da194d45fa63f7b0a6f54c59e",
+  "codigo_sha256": "fd0251ff08c4b5a19e51983dfc7259ca88747000680d605944efd5f73d78d488",
+  "modelo_sha256": "c3b378f7ba8c8c874707f8783c1654e2ea58028bcc7d7c4e6ef41261bd24d094",
+  "python": "3.12.14",
+  "alcance": "Comprobaciones locales. No acreditan versiones históricas del portal ni precisión futura."
+}
