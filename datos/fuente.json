@@ -1,0 +1,20 @@
+{
+  "fuente": "BMC, tablero IPAP BMC, Niveles, Total agropecuario",
+  "url": "https://www.bolsamercantil.com.co/user/tableros",
+  "fecha_captura": "2026-10-23",
+  "unidad": "puntos del índice",
+  "frecuencia": "mensual",
+  "inicio": "2011-01",
+  "fin": "2026-09",
+  "filas": 189,
+  "precision": "dos decimales visibles",
+  "metodo": "Extracción de las celdas visibles de Mostrar como tabla, consolidación por mes y conservación de los dos decimales publicados.",
+  "sha256_csv": "cc63532b8182acddd85b895dfd2f3b6c3037ad1da194d45fa63f7b0a6f54c59e",
+  "sha256_captura_json_original": "a379676e5ec1e297df8447c17d2284fdff73853ac961c5eb9341f3b60c530316",
+  "historia": "Versión publicada al capturar; no vintages históricos.",
+  "pendientes": [
+    "Aclarar base declarada diciembre de 2014 frente a nivel 99.13.",
+    "Confirmar calendarios históricos de publicación y revisiones."
+  ],
+  "archivo_captura": "documentacion/captura_bmc.json"
+}
