@@ -1,0 +1,37 @@
+{
+  "nombre": "ETS_120_meses",
+  "entrenado_utc": "2026-11-02T00:28:41.359672+00:00",
+  "inicio_entrenamiento": "2016-10",
+  "fin_entrenamiento": "2026-09",
+  "observaciones_entrenamiento": 120,
+  "observaciones_csv": 189,
+  "inicio_csv": "2011-01",
+  "fin_csv": "2026-09",
+  "ventana_maxima_meses": 120,
+  "horizonte_meses": 12,
+  "unidad": "puntos del índice",
+  "configuracion": {
+    "trend": "add",
+    "damped_trend": true,
+    "seasonal": "add",
+    "seasonal_periods": 12,
+    "initialization_method": "estimated"
+  },
+  "datos_sha256": "cc63532b8182acddd85b895dfd2f3b6c3037ad1da194d45fa63f7b0a6f54c59e",
+  "python": "3.12.14",
+  "plataforma": "macOS-26.6.2-arm64-arm-64bit",
+  "versiones": {
+    "numpy": "2.0.2",
+    "pandas": "2.3.3",
+    "scipy": "1.13.1",
+    "statsmodels": "0.14.6",
+    "matplotlib": "3.9.4"
+  },
+  "parametros": {
+    "smoothing_level": 0.9813123177467351,
+    "smoothing_trend": 0.1373098485424933,
+    "smoothing_seasonal": 0.0,
+    "damping_trend": 0.9407641557995828
+  },
+  "alcance": "Evaluación retrospectiva sobre períodos reutilizados. Sin intervalos calibrados."
+}
