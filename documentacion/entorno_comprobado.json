@@ -1,0 +1,17 @@
+{
+  "instalacion_nueva": true,
+  "bibliotecas_del_sistema_compartidas": false,
+  "python": "3.12.14",
+  "plataforma": "macOS-26.6.2-arm64-arm-64bit",
+  "versiones": {
+    "numpy": "2.0.2",
+    "pandas": "2.3.3",
+    "scipy": "1.13.1",
+    "statsmodels": "0.14.6",
+    "matplotlib": "3.9.4"
+  },
+  "comprobacion_dependencias": "pip check sin incompatibilidades",
+  "sistemas_ejecutados": [
+    "macOS ARM64"
+  ]
+}
